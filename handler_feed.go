@@ -50,3 +50,20 @@ func printFeed(feed database.Feed) {
 	fmt.Printf("* URL:           %s\n", feed.Url)
 	fmt.Printf("* UserID:        %s\n", feed.UserID)
 }
+
+func handlerGetFeeds(s *state, cmd command) error {
+	if len(cmd.Args) != 0 {
+		return fmt.Errorf("usage: %v <name>", cmd.Name)
+	}
+
+	feeds, err := s.db.Feeds(context.Background())
+	if err != nil {
+		return fmt.Errorf("couldn't get feeds: %w", err)
+	}
+
+	for _, x := range feeds {
+		fmt.Printf("Name: %v\nURL: %v\nAdded by: %v\n", x.Name, x.Url, x.Name_2)
+	}
+
+	return nil
+}
