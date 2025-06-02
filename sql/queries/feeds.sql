@@ -8,3 +8,6 @@ SELECT feeds.*, users.Name
 FROM feeds
 INNER JOIN users
 ON feeds.user_id = users.ID;
+
+-- name: GetFeedByUrl :one
+SELECT * FROM feeds WHERE url = $1;
